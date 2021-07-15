@@ -7,12 +7,34 @@ namespace MathProject
     public static class ExpressionCalculator
     {
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="input">User's Input</param>
+        /// <returns>Final operation result</returns>
+        /// <exception cref="InvalidOperationException">Invalid character in user's input</exception>
+        public static float Solve(string input)
+        {
+            if (ValidateInputOperation(input))
+            {
+                return CalculateOperation(input);
+            }
+            else
+            {
+                throw new InvalidOperationException("Invalid Charachter !");
+            }
+        }
+        
+        
+        /// <summary>
         /// Validates User's Input
         /// </summary>
         /// <param name="value">User's Input</param>
         /// <returns>Result Of Validation</returns>
-        public static bool ValidateUserInput(string value)
+        static bool ValidateInputOperation(string value)
         {
+            if (String.IsNullOrWhiteSpace(value))
+                return false;
+            
             // allowed charachters
             var allowedChars = new [] {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '-', '*', '/', '(', ')'};
 
@@ -35,21 +57,25 @@ namespace MathProject
         /// the operations array length should always be digits array length minus 1
         /// </summary>
         /// <param name="digits">Extracted Digits (Order Matters)</param>
-        /// <param name="operations">Extracted Operations (Order Matters)</param>
+        /// <param name="operators">Extracted Operations (Order Matters)</param>
         /// <returns>Result Of Calculation</returns>
-        static float CalculateExpressionResult(float[] digits, string[] operations)
+        /// <exception cref="InvalidOperationException">Digits and operators does not match</exception>
+        static float CalculateOperationResult(float[] digits, string[] operators)
         {
+            if (digits.Length - 1 != operators.Length)
+                throw new InvalidOperationException("Invalid math operation !");
+            
             float result = 0;
 
-            for (int i = 0; i < operations.Length; i++)
+            for (int i = 0; i < operators.Length; i++)
             {
                 if (i == 0)
                 {
-                    result = Calculate(digits[i], digits[i + 1], operations[i]);
+                    result = SimpleOperationResolver(digits[i], digits[i + 1], operators[i]);
                 }
                 else
                 {
-                    result = Calculate(result, digits[i + 1], operations[i]);
+                    result = SimpleOperationResolver(result, digits[i + 1], operators[i]);
                 }
             }
             
@@ -63,7 +89,7 @@ namespace MathProject
         /// <param name="value2">Second Value</param>
         /// <param name="operator">Operator (+, -, *, /)</param>
         /// <returns>Result of calculation</returns>
-        static float Calculate(float value1, float value2, string @operator)
+        static float SimpleOperationResolver(float value1, float value2, string @operator)
         {
             switch (@operator)
             {
@@ -87,7 +113,7 @@ namespace MathProject
         /// <param name="value">User's Input</param>
         /// <param name="consideredOperators">Considered Operators</param>
         /// <returns>Extraction result containing single digits and result of higher order expressions</returns>
-        static List<float> ExtractQueue(string value, char[] consideredOperators)
+        static List<float> ExtractDigits(string value, char[] consideredOperators)
         {
             var queue = new List<float>();
             
@@ -99,7 +125,7 @@ namespace MathProject
                 if (!parseResult)
                 {
                     // its a expression
-                    queue.Add(ResolveExpression(splited));
+                    queue.Add(OperationResolver(splited));
                 }
                 else
                 {
@@ -117,7 +143,7 @@ namespace MathProject
         /// <param name="value">Math Expression</param>
         /// <param name="consideredOperators">Considered operators</param>
         /// <returns>List of operators in right order</returns>
-        static List<string> ExtractOpertations(string value, char[] consideredOperators)
+        static List<string> ExtractOpertators(string value, char[] consideredOperators)
         {
             var operations = new List<string>();
 
@@ -135,9 +161,9 @@ namespace MathProject
         /// <summary>
         /// Resolves an expression containing one or multiple operators by considering the order of operators
         /// </summary>
-        /// <param name="value">Math Expression</param>
-        /// <returns>Calculated result of a simple math expression</returns>
-        static float ResolveExpression(string value)
+        /// <param name="value">Math Operation</param>
+        /// <returns>Calculated result of a math operation</returns>
+        static float OperationResolver(string value)
         {
             var operators = new[] {'*', '/'};
             if (value.Contains('+') || value.Contains('-'))
@@ -145,45 +171,45 @@ namespace MathProject
                 operators = new[] {'+', '-'};
             }
             // Seperating digits from string in right order
-            var queue = ExtractQueue(value, operators);
+            var queue = ExtractDigits(value, operators);
             // Seperating operators in right order
-            var operationList = ExtractOpertations(value, operators);
+            var operationList = ExtractOpertators(value, operators);
                 
             // Calculate Result Using Queue And Operations
-            return CalculateExpressionResult(queue.ToArray(), operationList.ToArray());
+            return CalculateOperationResult(queue.ToArray(), operationList.ToArray());
         }
 
         /// <summary>
-        /// Calculates expression inside a paranthesis
+        /// Calculates most inner operation inside a parenthesis and replace it with result and returns it
         /// </summary>
         /// <param name="value">Math Expression</param>
         /// <returns>Expression Result</returns>
-        static float CalculateParanthesis(string value)
+        static float DeleteParenthesis(string value)
         {
             var startIndex = value.LastIndexOf('(');
             var endIndex = value.IndexOf(')');
             var expression = value.Substring(startIndex + 1, endIndex - startIndex - 1);
-            var expressionResult = ResolveExpression(expression);
+            var expressionResult = OperationResolver(expression);
             var finalResult = value.Replace("(" + expression + ")", expressionResult.ToString());
 
-            return CalculateExpression(finalResult);
+            return CalculateOperation(finalResult);
         }
 
         /// <summary>
-        /// Checks the expression if it has paranthesis in it will resolve them first
-        /// then resolves the final expression and returns the answer
+        /// Checks the operation if it has parenthesis in it will resolve them first
+        /// then resolves the final simplified expression and returns the answer
         /// </summary>
         /// <param name="value">User's Input</param>
         /// <returns>Final result</returns>
-        public static float CalculateExpression(string value)
+        static float CalculateOperation(string value)
         {
             if (value.Contains("(") && value.Contains(")"))
             {
-                return CalculateParanthesis(value);
+                return DeleteParenthesis(value);
             }
             else
             {
-                return ResolveExpression(value);
+                return OperationResolver(value);
             }
         }
     }

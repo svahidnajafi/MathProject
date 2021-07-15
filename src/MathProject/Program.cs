@@ -13,17 +13,10 @@ namespace MathProject
             
             // accepting math expression from user
             var userInput = Console.ReadLine();
-            
-            // Validating user's input
-            if (!String.IsNullOrEmpty(userInput))
-            {
-                if (ExpressionCalculator.ValidateUserInput(userInput))
-                {
-                    var result = ExpressionCalculator.CalculateExpression(userInput);
-                    // Print result as output
-                    Console.WriteLine(result);
-                }
-            }
+            // Solve input operation
+            var result = ExpressionCalculator.Solve(userInput);
+            // Print result as output
+            Console.WriteLine(result);
             
             Console.ReadLine();
         }
