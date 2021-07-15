@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace MathProject
 {
-    public static class ExpressionCalculator
+    public static class MathOperationResolver
     {
         /// <summary>
         /// 

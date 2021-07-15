@@ -14,7 +14,7 @@ namespace MathProject
             // accepting math expression from user
             var userInput = Console.ReadLine();
             // Solve input operation
-            var result = ExpressionCalculator.Solve(userInput);
+            var result = MathOperationResolver.Solve(userInput);
             // Print result as output
             Console.WriteLine(result);
             

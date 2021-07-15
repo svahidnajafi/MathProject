@@ -7,6 +7,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1051E056-C27
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathProject", "src\MathProject\MathProject.csproj", "{423D7A0E-5E76-44AE-86D5-1992E25204F7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{CC3D3FB8-7BB0-4A86-92C9-7168F3115DD4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathProject.UnitTest", "tests\MathProject.UnitTest\MathProject.UnitTest.csproj", "{5B138BCF-1C2C-4E3B-90F2-840E7A1EBF34}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,8 +36,21 @@ Global
 		{423D7A0E-5E76-44AE-86D5-1992E25204F7}.Release|x64.Build.0 = Release|Any CPU
 		{423D7A0E-5E76-44AE-86D5-1992E25204F7}.Release|x86.ActiveCfg = Release|Any CPU
 		{423D7A0E-5E76-44AE-86D5-1992E25204F7}.Release|x86.Build.0 = Release|Any CPU
+		{5B138BCF-1C2C-4E3B-90F2-840E7A1EBF34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B138BCF-1C2C-4E3B-90F2-840E7A1EBF34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B138BCF-1C2C-4E3B-90F2-840E7A1EBF34}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5B138BCF-1C2C-4E3B-90F2-840E7A1EBF34}.Debug|x64.Build.0 = Debug|Any CPU
+		{5B138BCF-1C2C-4E3B-90F2-840E7A1EBF34}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5B138BCF-1C2C-4E3B-90F2-840E7A1EBF34}.Debug|x86.Build.0 = Debug|Any CPU
+		{5B138BCF-1C2C-4E3B-90F2-840E7A1EBF34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B138BCF-1C2C-4E3B-90F2-840E7A1EBF34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B138BCF-1C2C-4E3B-90F2-840E7A1EBF34}.Release|x64.ActiveCfg = Release|Any CPU
+		{5B138BCF-1C2C-4E3B-90F2-840E7A1EBF34}.Release|x64.Build.0 = Release|Any CPU
+		{5B138BCF-1C2C-4E3B-90F2-840E7A1EBF34}.Release|x86.ActiveCfg = Release|Any CPU
+		{5B138BCF-1C2C-4E3B-90F2-840E7A1EBF34}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{423D7A0E-5E76-44AE-86D5-1992E25204F7} = {1051E056-C27F-4340-9C4C-C58EB2586BF6}
+		{5B138BCF-1C2C-4E3B-90F2-840E7A1EBF34} = {CC3D3FB8-7BB0-4A86-92C9-7168F3115DD4}
 	EndGlobalSection
 EndGlobal
